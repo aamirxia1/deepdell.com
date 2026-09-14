@@ -1,1 +1,17 @@
-const header=document.querySelector('.site-header');const menu=document.querySelector('.menu');if(menu){menu.addEventListener('click',()=>{const open=header.classList.toggle('menu-open');menu.setAttribute('aria-expanded',open)});document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',()=>{header.classList.remove('menu-open');menu.setAttribute('aria-expanded','false')}));}const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.08});document.querySelectorAll('.service,.ai-grid article,.why-grid article,.steps article,.reveal').forEach(el=>{el.classList.add('reveal-item');observer.observe(el)});
+const premium=document.createElement('link');premium.rel='stylesheet';premium.href='premium.css';document.head.appendChild(premium);
+
+const header=document.querySelector('.site-header');
+const menu=document.querySelector('.menu');
+if(menu){menu.addEventListener('click',()=>{const open=header.classList.toggle('menu-open');menu.setAttribute('aria-expanded',String(open));});document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',()=>{header.classList.remove('menu-open');menu.setAttribute('aria-expanded','false');}));}
+
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}}),{threshold:.08,rootMargin:'0px 0px -30px'});
+document.querySelectorAll('.service,.ai-grid article,.why-grid article,.steps article,.reveal').forEach(el=>{el.classList.add('reveal-item');observer.observe(el);});
+
+// Subtle pointer parallax on desktop only; disabled for touch and reduced-motion users.
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const touch=window.matchMedia('(pointer: coarse)').matches;
+const art=document.querySelector('.hero-art');
+if(art&&!reduce&&!touch){art.addEventListener('pointermove',e=>{const r=art.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;art.style.setProperty('--mx',`${x*14}px`);art.style.setProperty('--my',`${y*10}px`);});art.addEventListener('pointerleave',()=>{art.style.setProperty('--mx','0px');art.style.setProperty('--my','0px');});}
+
+// Header state while scrolling.
+let lastY=window.scrollY;window.addEventListener('scroll',()=>{const y=window.scrollY;header.classList.toggle('scrolled',y>20);if(y>lastY&&y>180)header.classList.add('scroll-down');else header.classList.remove('scroll-down');lastY=y;},{passive:true});
