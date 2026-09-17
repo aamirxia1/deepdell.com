@@ -1,0 +1,35 @@
+# DEEPDELL
+
+> Deep technology. Clear impact.
+
+DEEPDELL is a digital engineering company focused on high-performance digital commerce, Shopify Plus engineering, AI agents, agentic automation, systems integration, data and business intelligence, and custom software.
+
+## Primary capabilities
+
+- Shopify Plus engineering: enterprise storefronts, Markets, B2B, multi-store architecture, custom themes, Liquid, headless commerce, checkout extensions, APIs and GraphQL.
+- AI and agentic automation: production AI agents, tool-using workflows, copilots, knowledge systems, AI commerce and natural-language analytics.
+- Business automation: event-driven workflows, scheduled pipelines, bots and connected operational systems.
+- Systems integration: ERP, CRM, POS, PIM, WMS, logistics, payments, marketplaces and custom APIs.
+- Data and BI: dashboards, reporting automation, data pipelines, KPI systems, analytics and warehouses.
+- Custom software and SaaS: web platforms, portals, APIs and scalable digital products.
+- SEO and CRO: technical SEO, performance, analytics, experimentation and conversion engineering.
+
+## Core technology ecosystem
+
+Shopify, Shopify Plus, React, Next.js, Node.js, TypeScript, JavaScript, PHP, Magento, GraphQL, Python, OpenAI, Supabase, PostgreSQL, MySQL, Cloudflare, Vercel, Docker, GitHub, AWS, Stripe, Google Analytics, Klaviyo and Odoo.
+
+## Primary pages
+
+- https://deepdell.com/
+- https://deepdell.com/services.html
+- https://deepdell.com/shopify-plus.html
+- https://deepdell.com/ai.html
+- https://deepdell.com/data.html
+- https://deepdell.com/industries.html
+- https://deepdell.com/contact.html
+
+## Preferred homepage URL
+
+https://deepdell.com/
+
+The homepage URL is the preferred canonical URL. `/index.html` is an alternate legacy path and should permanently redirect to `/` at the edge/server level.
