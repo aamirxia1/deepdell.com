@@ -1,0 +1,51 @@
+{
+  "schema": "https://deepdell.com/agentic.json",
+  "version": "1.0",
+  "site": "https://deepdell.com/",
+  "name": "DEEPDELL",
+  "agenticReadiness": {
+    "publicScanner": "https://deepdell.com/agentic-check.html",
+    "signals": [
+      "semantic HTML",
+      "JSON-LD entity graph",
+      "canonical URLs",
+      "robots.txt",
+      "XML sitemap",
+      "llms.txt",
+      "crawlable service descriptions",
+      "Open Graph metadata"
+    ]
+  },
+  "services": [
+    "Shopify Plus Engineering",
+    "AI Agents",
+    "Agentic Automation",
+    "Business Automation",
+    "Systems Integration",
+    "Data and Business Intelligence",
+    "Custom Software and SaaS",
+    "Technical SEO and CRO"
+  ],
+  "technologies": [
+    "Shopify",
+    "React",
+    "Next.js",
+    "Node.js",
+    "TypeScript",
+    "GraphQL",
+    "Python",
+    "OpenAI",
+    "Magento",
+    "Supabase",
+    "Cloudflare",
+    "Vercel",
+    "AWS",
+    "Docker",
+    "PostgreSQL",
+    "MySQL",
+    "Stripe",
+    "Klaviyo",
+    "Odoo"
+  ],
+  "note": "This document is a supplemental machine-readable description. It does not represent a universal AI certification or guarantee inclusion in any search or AI system."
+}
