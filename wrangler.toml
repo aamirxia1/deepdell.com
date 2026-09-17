@@ -2,7 +2,7 @@ name = "deepdell-contact"
 main = "worker/contact.js"
 compatibility_date = "2026-09-17"
 
-# The GitHub Pages site remains the frontend. Cloudflare intercepts only /api/*.
-routes = [
-  { pattern = "deepdell.com/api/*", zone_name = "deepdell.com" }
-]
+# GitHub Pages remains the frontend. Cloudflare handles only the contact API route.
+[[routes]]
+pattern = "deepdell.com/api/*"
+zone_name = "deepdell.com"
