@@ -1,0 +1,15 @@
+/* DEEPDELL production fixes — September 2026 */
+.brand img{width:172px!important;height:42px!important;object-fit:contain!important;display:block!important}
+.brand:after,.footer-brand:after{display:none!important}
+.footer-brand img{width:190px!important;height:auto!important;object-fit:contain!important;display:block!important}
+.agentic-badge{display:inline-flex;align-items:center;gap:8px;color:#89f9fd;font:10px/1 'DM Mono',monospace;letter-spacing:.14em;text-transform:uppercase}
+.agentic-badge span{width:7px;height:7px;border-radius:50%;background:#20f3fb;box-shadow:0 0 14px #20f3fb;animation:deepdellSignal 2s ease-in-out infinite}
+.agentic-form-note{margin:-4px 0 14px!important;color:#7189a3!important;font:10px/1.6 'DM Mono',monospace!important}
+.agentic-mini-form{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto!important;gap:10px!important}
+.agentic-mini-form input{min-width:0!important;width:100%!important;box-sizing:border-box!important}
+.agentic-mini-form .btn{min-height:50px!important}
+@keyframes deepdellSignal{0%,100%{opacity:.55;transform:scale(.9)}50%{opacity:1;transform:scale(1.25)}}
+.hero-art .orb .ring{will-change:transform!important}
+@media(max-width:1050px){.brand img{width:155px!important;height:40px!important}.agentic-mini-form{grid-template-columns:1fr 1fr!important}.agentic-mini-form .btn{grid-column:1/-1}}
+@media(max-width:700px){.brand img{width:145px!important;height:38px!important}.footer-brand img{width:170px!important}.agentic-mini-form{grid-template-columns:1fr!important}.agentic-mini-form .btn{grid-column:auto;width:100%!important}}
+@media(prefers-reduced-motion:reduce){.agentic-badge span{animation:none}}
