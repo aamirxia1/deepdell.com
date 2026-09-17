@@ -9,7 +9,7 @@ const HOME_TIMEOUT = 3500;
 
 const esc = (value) => String(value ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-  .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+  .replace(/\"/g, '&quot;').replace(/'/g, '&#039;');
 const clean = (value, max = 3000) => String(value ?? '').trim().slice(0, max);
 
 function requestOrigin(request) {
@@ -112,11 +112,11 @@ async function fetchPublic(url, timeoutMs = FETCH_TIMEOUT) {
   return {status:0,ok:false,text:'',finalUrl:current.href,error:'redirect'};
 }
 function stripHtml(html){return html.replace(/<script[\s\S]*?<\/script>/gi,' ').replace(/<style[\s\S]*?<\/style>/gi,' ').replace(/<[^>]+>/g,' ').replace(/&nbsp;/gi,' ').replace(/\s+/g,' ').trim();}
-function meta(html,name,attr='name'){const re=new RegExp(`<meta[^>]+${attr}=["']${name}["'][^>]+content=["']([^"']*)["']|<meta[^>]+content=["']([^"']*)["'][^>]+${attr}=["']${name}["']`,'i');const m=html.match(re);return m?(m[1]||m[2]||''):'';}
-function linkHref(html,rel){const m=html.match(new RegExp(`<link[^>]+rel=["']${rel}["'][^>]+href=["']([^"']+)["']|<link[^>]+href=["']([^"']+)["'][^>]+rel=["']${rel}["']`,'i'));return m?(m[1]||m[2]||''):'';}
+function meta(html,name,attr='name'){const re=new RegExp(`<meta[^>]+${attr}=[\"']${name}[\"'][^>]+content=[\"']([^\"']*)[\"']|<meta[^>]+content=[\"']([^\"']*)[\"'][^>]+${attr}=[\"']${name}[\"']`,'i');const m=html.match(re);return m?(m[1]||m[2]||''):'';}
+function linkHref(html,rel){const m=html.match(new RegExp(`<link[^>]+rel=[\"']${rel}[\"'][^>]+href=[\"']([^\"']+)[\"']|<link[^>]+href=[\"']([^\"']+)[\"'][^>]+rel=[\"']${rel}[\"']`,'i'));return m?(m[1]||m[2]||''):'';}
 function title(html){const m=html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);return m?stripHtml(m[1]):'';}
 function count(html,tag){return(html.match(new RegExp(`<${tag}(?:\s|>)`,'gi'))||[]).length;}
-function hasLd(html){return/<script[^>]+type=["']application\/ld\+json["'][^>]*>/i.test(html);}
+function hasLd(html){return/<script[^>]+type=[\"']application\/ld\+json[\"'][^>]*>/i.test(html);}
 function validJson(text){try{JSON.parse(text);return true}catch{return false}}
 
 async function audit(request,body){
@@ -129,7 +129,7 @@ async function audit(request,body){
   const html=home.text;
   const canonicalRaw=linkHref(html,'canonical');
   let canonical=false;try{canonical=!!canonicalRaw&&new URL(canonicalRaw,u.href).href.replace(/\/$/,'')===u.href.replace(/\/$/,'')}catch{}
-  const lang=(html.match(/<html[^>]+lang=["']([^"']+)/i)||[])[1]||'';
+  const lang=(html.match(/<html[^>]+lang=[\"']([^\"']+)/i)||[])[1]||'';
   const titleText=title(html),desc=meta(html,'description'),og=!!meta(html,'og:title','property');
   const bodyText=stripHtml(html),h1=count(html,'h1')>0,headings=count(html,'h1')+count(html,'h2')+count(html,'h3'),links=count(html,'a'),schema=hasLd(html);
   const results=[];
@@ -154,10 +154,17 @@ export default { async fetch(request,env){
     return response({ok:true,auditAvailable:true,emailAvailable:!!env.RESEND_API_KEY},200,request);
   }
   if(url.pathname==='/api/audit'){
-    if(request.method!=='POST')return fail('Method not allowed.',405,request);
-    const length=Number(request.headers.get('Content-Length')||0);if(length>MAX_AUDIT_BODY)return fail('Request is too large.',413,request);
-    let body;try{body=await request.json()}catch{return fail('Invalid request.',400,request)}
-    return audit(request,body);
+    if(request.method==='POST'){
+      const length=Number(request.headers.get('Content-Length')||0);if(length>MAX_AUDIT_BODY)return fail('Request is too large.',413,request);
+      let body;try{body=await request.json()}catch{return fail('Invalid request.',400,request)}
+      return audit(request,body);
+    }
+    if(request.method==='GET'){
+      const raw=url.searchParams.get('url')||'';
+      if(raw.length>4000)return fail('Audit URL is too long.',413,request);
+      return audit(request,{url:raw});
+    }
+    return fail('Method not allowed.',405,request);
   }
   if(url.pathname!=='/api/contact')return fail('Not found.',404,request);
   if(request.method!=='POST')return fail('Method not allowed.',405,request);
