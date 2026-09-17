@@ -1,4 +1,23 @@
+# DEEPDELL public crawler policy
+# Public website content is crawlable unless a more specific rule applies.
 User-agent: *
 Allow: /
 
+# AI/search discovery agents
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
 Sitemap: https://deepdell.com/sitemap.xml
+Sitemap: https://deepdell.com/sitemap_index.xml
