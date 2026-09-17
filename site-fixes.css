@@ -2,6 +2,7 @@
 .brand img{width:172px!important;height:42px!important;object-fit:contain!important;display:block!important}
 .brand:after,.footer-brand:after{display:none!important}
 .footer-brand img{width:190px!important;height:auto!important;object-fit:contain!important;display:block!important}
+.footer-links a[href^="mailto:support@deepdell.com"]{display:none!important}
 .agentic-badge{display:inline-flex;align-items:center;gap:8px;color:#89f9fd;font:10px/1 'DM Mono',monospace;letter-spacing:.14em;text-transform:uppercase}
 .agentic-badge span{width:7px;height:7px;border-radius:50%;background:#20f3fb;box-shadow:0 0 14px #20f3fb;animation:deepdellSignal 2s ease-in-out infinite}
 .agentic-form-note{margin:-4px 0 14px!important;color:#7189a3!important;font:10px/1.6 'DM Mono',monospace!important}
