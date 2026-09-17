@@ -2,7 +2,11 @@ name = "deepdell-contact"
 main = "worker/contact.js"
 compatibility_date = "2026-09-17"
 
-# GitHub Pages remains the frontend. Cloudflare handles only the contact API route.
+# GitHub Pages remains the frontend. Cloudflare handles only the contact/audit API routes.
 [[routes]]
 pattern = "deepdell.com/api/*"
+zone_name = "deepdell.com"
+
+[[routes]]
+pattern = "www.deepdell.com/api/*"
 zone_name = "deepdell.com"
