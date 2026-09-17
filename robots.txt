@@ -20,4 +20,3 @@ User-agent: PerplexityBot
 Allow: /
 
 Sitemap: https://deepdell.com/sitemap.xml
-Sitemap: https://deepdell.com/sitemap_index.xml
