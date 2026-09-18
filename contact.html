@@ -18,10 +18,64 @@
 <article class="page-card"><span class="card-code">02 / AGENTIC</span><h3>Have an audit?</h3><p>If you came from the Agentic Readiness Checker, include your audit URL when you contact us.</p></article>
 <article class="page-card"><span class="card-code">03 / RESPONSE</span><h3>Direct to DEEPDELL</h3><p>Send your project brief directly to our team. No complicated form.</p></article>
 </div>
-<div class="contact-simple" style="margin-top:30px;padding:clamp(30px,5vw,64px);border:1px solid rgba(137,249,253,.14);background:linear-gradient(145deg,rgba(2,28,61,.78),rgba(1,20,52,.96));display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap">
-<div><div class="section-kicker">START A CONVERSATION</div><h2 style="margin:12px 0 10px">Build something <span>deeper.</span></h2><p style="margin:0;color:#9db3ca;max-width:650px;line-height:1.8">Email us with your project, website, requirements or audit results. We'll take it from there.</p></div>
-<a class="btn primary large" href="mailto:support@deepdell.com?subject=DEEPDELL%20Project%20Enquiry">Email DEEPDELL <span>↗</span></a>
-</div></section>
+<div class="contact-simple" style="margin-top:30px;padding:clamp(30px,5vw,64px);border:1px solid rgba(137,249,253,.14);background:linear-gradient(145deg,rgba(2,28,61,.78),rgba(1,20,52,.96))">
+<div style="margin-bottom:28px"><div class="section-kicker">START A CONVERSATION</div><h2 style="margin:12px 0 10px">Build something <span>deeper.</span></h2><p style="margin:0;color:#9db3ca;max-width:720px;line-height:1.8">Tell us what you're building, what is broken, or where you want to go next. Your enquiry will be captured in our DEEPDELL Klaviyo workspace for follow-up.</p></div>
+<form id="deepdell-contact-form" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px" novalidate>
+<label><span class="sr-only">First name</span><input name="first_name" autocomplete="given-name" required placeholder="First name" aria-label="First name"></label>
+<label><span class="sr-only">Last name</span><input name="last_name" autocomplete="family-name" placeholder="Last name" aria-label="Last name"></label>
+<label><span class="sr-only">Business email</span><input name="email" type="email" autocomplete="email" required placeholder="Business email" aria-label="Business email"></label>
+<label><span class="sr-only">Company</span><input name="organization" autocomplete="organization" placeholder="Company" aria-label="Company"></label>
+<label style="grid-column:1/-1"><span class="sr-only">Project message</span><textarea name="message" required rows="6" placeholder="Tell us about your project, website, requirements or audit results." aria-label="Project message"></textarea></label>
+<label style="grid-column:1/-1;display:flex;gap:10px;align-items:flex-start;color:#9db3ca;font-size:13px;line-height:1.5"><input name="marketing_consent" type="checkbox" style="margin-top:3px;width:auto"> Keep me updated with occasional DEEPDELL insights and updates.</label>
+<div style="grid-column:1/-1;display:flex;align-items:center;gap:18px;flex-wrap:wrap"><button class="btn primary large" type="submit">Send enquiry <span>↗</span></button><span id="deepdell-contact-status" role="status" aria-live="polite" style="color:#9db3ca"></span></div>
+</form>
+<p style="margin:18px 0 0;color:#7189a3;font-size:12px;line-height:1.6">By submitting, you agree that DEEPDELL may use the information to respond to your enquiry. Marketing updates are optional.</p>
+</div>
+<script>
+(function(){
+  const form=document.getElementById('deepdell-contact-form');
+  const status=document.getElementById('deepdell-contact-status');
+  if(!form) return;
+  form.addEventListener('submit',async function(e){
+    e.preventDefault();
+    if(!form.reportValidity()) return;
+    const data=new FormData(form);
+    const email=String(data.get('email')||'').trim();
+    const payload={
+      data:{
+        type:'subscription',
+        attributes:{
+          custom_source:'DEEPDELL Website Contact',
+          profiles:{
+            data:[{
+              type:'profile',
+              attributes:{
+                email,
+                first_name:String(data.get('first_name')||'').trim()||undefined,
+                last_name:String(data.get('last_name')||'').trim()||undefined,
+                organization:String(data.get('organization')||'').trim()||undefined,
+                properties:{'Project Message':String(data.get('message')||'').trim(),'Lead Source':'deepdell.com/contact.html'}
+              }
+            }]
+          }
+        }
+      }
+    };
+    const consent=data.get('marketing_consent')==='on';
+    payload.data.attributes.list_id='Vhg89J';
+    if(!consent) delete payload.data.attributes.custom_source;
+    const btn=form.querySelector('button');
+    btn.disabled=true; status.textContent='Sending…';
+    try{
+      const r=await fetch('https://a.klaviyo.com/client/subscriptions/?company_id=RgF4ug',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      if(!r.ok) throw new Error('Klaviyo request failed');
+      form.reset(); status.textContent='Thanks — your enquiry has been received.';
+    }catch(err){
+      status.textContent='We could not submit the form. Please email support@deepdell.com directly.';
+    }finally{btn.disabled=false;}
+  });
+})();
+</script></section>
 </main>
 <footer class="footer"><div class="footer-brand"><img src="assets/deepdell-lockup.svg" alt="DEEPDELL — Deep Technology. Clear Impact."><p>Commerce engineering, AI and digital systems built for what comes next.</p></div><div class="footer-links"><div><strong>EXPLORE</strong><a href="services.html">Services</a><a href="shopify-plus.html">Shopify Plus</a><a href="ai.html">AI & Automation</a><a href="data.html">Data & BI</a><a href="industries.html">Industries</a></div><div><strong>CONNECT</strong><a href="mailto:support@deepdell.com">Start a project</a></div></div><div class="footer-bottom"><span>© 2026 DEEPDELL. All rights reserved.</span><span>deepdell.com</span></div></footer>
 <script src="script.js"></script>
